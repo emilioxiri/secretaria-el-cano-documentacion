@@ -41,7 +41,7 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 
 ## Mapa de conceptos de negocio
 
-```mermaid
+<pre class="mermaid">
 graph TD
     FALLERO["Fallero<br/>(miembro del censo)"]
     FAMILIA["Familia<br/>(agrupación con cabeza de familia)"]
@@ -61,7 +61,12 @@ graph TD
     JCF -->|"actualiza los datos del"| FALLERO
     CATALOGOS -->|"aportan cargos y recompensas al"| HISTORICO
     USUARIO -->|"gestiona la aplicación"| FALLERO
-```
+</pre>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.js';
+  mermaid.initialize({ startOnLoad: true });
+</script>
 
 ## Glosario
 
