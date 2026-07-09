@@ -40,6 +40,10 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 | Catálogos de referencia | [catalogos.md](catalogos.md) |
 
 ## Mapa de conceptos de negocio
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.js';
+  mermaid.initialize({ startOnLoad: true });
+</script>
 
 <pre class="mermaid">
 graph TD
@@ -62,11 +66,6 @@ graph TD
     CATALOGOS -->|"aportan cargos y recompensas al"| HISTORICO
     USUARIO -->|"gestiona la aplicación"| FALLERO
 </pre>
-
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.js';
-  mermaid.initialize({ startOnLoad: true });
-</script>
 
 ## Glosario
 
