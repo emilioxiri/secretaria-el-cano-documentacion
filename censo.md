@@ -119,7 +119,9 @@ Pantalla **Formulario fallero** (menú lateral):
 - **Resultado**: el fallero deja de aparecer en el listado de activos y pasa a
   verse con **Ver bajas**; sus datos e histórico se conservan (RN-07).
 - **Errores / alternativas**: para reactivar a un fallero basta con vaciar su
-  fecha de baja desde la misma pantalla.
+  fecha de baja desde la misma pantalla. Las bajas también pueden registrarse
+  de forma automática al volcar el censo de la JCF (ver
+  [Censo JCF](censo-jcf.md)).
 
 ### CU-04 — Consulta del censo con filtros
 
@@ -154,4 +156,5 @@ Pantalla **Formulario fallero** (menú lateral):
 - [Ejercicio](ejercicio.md) — la generación del nuevo año fallero promociona
   las cuotas EPIM y añade un año al histórico de cada fallero activo.
 - [Censo JCF](censo-jcf.md) — los datos del censo pueden actualizarse desde el
-  censo oficial de la JCF.
+  censo oficial de la JCF, y el volcado da de baja a los falleros activos que
+  ya no figuran en él.
