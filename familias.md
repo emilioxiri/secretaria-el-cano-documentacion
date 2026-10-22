@@ -60,6 +60,10 @@ Desde la ficha del fallero (**Ver Falleros** → **Datos completos**):
 - **RN-06 — Solo falleros sin familia como nuevos miembros.** Al añadir un
   miembro, únicamente se ofrecen falleros activos que no pertenezcan a ninguna
   familia.
+- **RN-07 — Homónimos distinguibles.** En todos los desplegables de falleros y
+  familias, las personas (o cabezas de familia) con el mismo nombre aparecen
+  como opciones distintas, identificadas por su número de censo (#IdCenso),
+  de modo que la acción se aplica siempre a la persona elegida.
 
 ## 5. Casos de uso
 

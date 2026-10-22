@@ -11,7 +11,8 @@ la directiva de cada ejercicio.
 ## 2. Conceptos
 
 - **Registro de histórico**: anotación de un fallero para un año concreto con
-  su cargo, su comisión y, si procede, su recompensa.
+  su cargo, su comisión y, si procede, su recompensa. El **año** es siempre el
+  año de inicio del ejercicio (2026 para el ejercicio 2026-2027).
 - **Cargo**: responsabilidad del fallero ese año (Presidente, Secretario,
   Tesorero, delegados…). Quien no tiene cargo de directiva figura como
   **VOCAL**.
@@ -47,12 +48,19 @@ Pantalla **Administración → pestaña Directiva**:
 - **RN-02 — Alta con histórico.** Al dar de alta un fallero se crea su primer
   registro de histórico como VOCAL del ejercicio actual (ver
   [Censo](censo.md)).
-- **RN-03 — Un cargo de directiva por fallero y año.** Al asignar un cargo a
-  un fallero que ya tiene cargo de directiva ese año, no se acumulan: el cargo
-  anterior se sustituye por el nuevo.
+- **RN-03 — Un cargo por fallero y año.** Al asignar un cargo a un fallero
+  que ya tiene cargo de directiva ese año, no se acumulan: el cargo anterior
+  se sustituye por el nuevo. Si ese año figuraba como **VOCAL**, su registro
+  pasa a tener el cargo de directiva (no se crea un segundo registro); si no
+  tenía registro ese año, se crea con su comisión IM.
 - **RN-04 — El cambio de cargo conserva el resto del registro.** Cambiar el
   cargo de un fallero para un año es una operación única que mantiene la
-  comisión y la recompensa que tuviera ese registro.
+  comisión y la recompensa que tuviera ese registro. Si el cambio se rechaza
+  (por ejemplo, por duplicado), el registro original queda intacto.
+- **RN-04b — Quitar un cargo deja al fallero como VOCAL.** Quien no tiene
+  cargo de directiva figura como VOCAL, así que **Quitar cargo** convierte el
+  registro en VOCAL conservando comisión y recompensa. Solo se elimina el
+  registro si el fallero ya tenía otro registro ese mismo año.
 - **RN-05 — La directiva de cualquier año es corregible.** Desde la pestaña
   Directiva se puede cambiar o quitar un cargo de cualquier ejercicio
   registrado, no solo del actual.
@@ -109,15 +117,16 @@ Pantalla **Administración → pestaña Directiva**:
   **Cambiar cargo** (con el nuevo cargo) o **Quitar cargo** → **Aplicar
   cambio**.
 - **Resultado**: mensaje de confirmación del cambio o retirada; la tabla se
-  actualiza.
+  actualiza. Al quitar un cargo, el fallero sigue en el histórico de ese año
+  como VOCAL (RN-04b).
 - **Errores / alternativas**: cambiar a un cargo que el fallero ya tiene ese
-  año se rechaza como duplicado (RN-01).
+  año se rechaza como duplicado (RN-01) sin modificar nada (RN-04).
 
 ## 6. Relación con otros dominios
 
 - [Censo](censo.md) — el histórico pertenece a un fallero del censo; el alta
   genera el primer registro.
 - [Ejercicio](ejercicio.md) — la generación del nuevo año fallero copia el
-  último registro de cada fallero activo al año siguiente.
+  último registro de cada fallero activo al año del nuevo ejercicio.
 - [Catálogos](catalogos.md) — los cargos y recompensas disponibles provienen de
   los catálogos de referencia.

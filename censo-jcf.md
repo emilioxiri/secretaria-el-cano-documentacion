@@ -45,13 +45,16 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
 - **RN-01 — La repoblación reemplaza todo.** Importar el fichero vacía la
   copia local del Censo JCF y la sustituye íntegramente por el contenido del
   Excel; se pide confirmación expresa antes de hacerlo.
-- **RN-02 — DNIs duplicados bloquean la importación.** Si el fichero contiene
-  DNIs repetidos, la importación completa se rechaza indicando cuáles son.
+- **RN-02 — Duplicados bloquean la importación.** Si el fichero contiene DNIs
+  o códigos JCF (COD.JCF) repetidos, la importación completa se rechaza
+  indicando cuáles son, **antes** de vaciar la copia local, que queda intacta.
 - **RN-03 — El fichero debe ser el oficial.** Si las cabeceras del Excel no
   son las esperadas, el fichero se rechaza mostrando las cabeceras recibidas.
 - **RN-04 — Fechas de nacimiento incompletas.** Los registros cuya fecha de
   nacimiento solo indica el año se importan sin fecha de nacimiento y se
-  informa de cuántos son.
+  informa de cuántos son. Se aceptan fechas completas en formato DD-MM-AAAA,
+  DD/MM/AAAA o como celda de fecha de Excel. Los códigos postales numéricos
+  recuperan el cero inicial (3001 → 03001).
 - **RN-05 — La comparación no modifica nada.** El dry-run es una simulación:
   calcula y muestra las diferencias y permite exportarlas a Excel, sin tocar
   el censo.
@@ -62,9 +65,15 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   únicamente los campos en los que la JCF aporta un valor distinto del que
   consta en el censo; los registros ambiguos no se modifican (quedan en el
   informe para revisión manual).
+- **RN-07b — Un registro JCF por fallero.** Cada fallero del censo se empareja
+  como mucho con un registro JCF. El emparejamiento se hace por niveles (código
+  JCF, luego DNI, luego nombre) y un fallero emparejado en un nivel no vuelve a
+  emparejarse en otro. Si varios registros JCF apuntan al mismo fallero en el
+  mismo nivel, todos se marcan como ambiguos y no se actualiza nada.
 - **RN-08 — Volcado protegido.** El botón **Volcar a Censo** permanece
   deshabilitado hasta haber ejecutado una comparación con cambios pendientes,
-  y siempre exige confirmación.
+  y siempre exige confirmación. Tras un volcado o una repoblación se descarta
+  la comparación anterior (ya no es válida) y hay que volver a comparar.
 
 ## 5. Casos de uso
 

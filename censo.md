@@ -47,13 +47,16 @@ Pantalla **Ver Falleros** (menú lateral):
 Pantalla **Formulario fallero** (menú lateral):
 
 - **Alta de fallero** con secciones: Datos personales, Dirección, Comisión y
-  cuota, Datos bancarios y Otros (fecha de alta, pulsera).
+  cuota, Datos bancarios y Otros (fecha de alta, pulsera). La **Fecha baja**
+  no se ofrece en el alta: solo tiene sentido sobre un fallero ya existente.
 - **Edición de fallero** (misma pantalla, con el aviso "Estás modificando los
   datos de un fallero existente"): todos los campos editables salvo el
   identificador del censo y el código de Censo JCF, que se muestran solo como
   consulta. Incluye el campo **Fecha baja** para registrar la baja.
 - Selección de la cuenta bancaria para la domiciliación desde un desplegable de
-  cuentas existentes (opción "Sin cuenta bancaria" disponible).
+  cuentas existentes (opción "Sin cuenta bancaria" disponible). En edición, la
+  cuenta que ya tiene asignada el fallero aparece siempre seleccionada, aunque
+  sea una cuenta antigua sin IBAN, para que guardar no la desvincule.
 - Validación campo a campo con mensajes de error visibles junto al formulario.
 
 ## 4. Reglas de negocio
@@ -62,8 +65,13 @@ Pantalla **Formulario fallero** (menú lateral):
   nombre, apellidos, fecha de nacimiento, teléfono, calle, población, código
   postal, comisión MF, comisión IM, cuota EPIM y fecha de alta.
 - **RN-02 — DNI opcional pero verificado.** El DNI es opcional (los menores
-  pueden no tenerlo). Si se informa, debe tener 8 números y una letra, y la
-  letra de control debe ser la correcta; en caso contrario el alta se rechaza.
+  pueden no tenerlo). Si se informa, debe ser un **DNI** (8 números y una
+  letra) o un **NIE** (X, Y o Z, 7 números y una letra), y la letra de control
+  debe ser la correcta. La regla es la misma en el alta y en la edición, y el
+  error se muestra junto al formulario.
+- **RN-02b — DNI único.** Dos falleros no pueden compartir DNI: tanto en el
+  alta como en la edición se rechaza con el mensaje "Ya existe un fallero con
+  el DNI …".
 - **RN-03 — Fecha de nacimiento verosímil.** No puede ser futura ni suponer
   una edad superior a 120 años.
 - **RN-04 — Email con formato válido.** El email es opcional; si se informa,
@@ -75,10 +83,12 @@ Pantalla **Formulario fallero** (menú lateral):
   guardar.
 - **RN-06 — Alta con histórico automático.** Al dar de alta un fallero se crea
   automáticamente un registro en su histórico como **VOCAL** del ejercicio
-  actual, con su comisión IM.
+  actual (anotado con el **año de inicio** del ejercicio, p. ej. 2026 para
+  2026-2027, igual que el resto del histórico), con su comisión IM.
 - **RN-07 — La baja es una fecha, nunca un borrado.** Un fallero jamás se
   elimina del censo: la baja se registra rellenando la **Fecha baja** en el
-  formulario de edición. Su histórico y sus datos se conservan.
+  formulario de edición. Su histórico y sus datos se conservan. La fecha de
+  baja no puede ser anterior a la fecha de alta.
 - **RN-08 — El listado muestra activos por defecto.** Las bajas solo se ven al
   pulsar **Ver bajas**; las estadísticas del resumen cuentan únicamente
   falleros activos.
@@ -107,8 +117,9 @@ Pantalla **Formulario fallero** (menú lateral):
 - **Pasos**: **Ver Falleros** → seleccionar al fallero en la tabla → **Editar**
   → modificar los campos → **Guardar cambios**.
 - **Resultado**: mensaje "Fallero actualizado correctamente".
-- **Errores / alternativas**: mismas validaciones que en el alta; **Cancelar**
-  vuelve al listado sin guardar.
+- **Errores / alternativas**: mismas validaciones que en el alta (incluida la
+  letra de control del DNI/NIE y el DNI único); **Cancelar** vuelve al listado
+  sin guardar.
 
 ### CU-03 — Baja de un fallero
 
@@ -118,8 +129,9 @@ Pantalla **Formulario fallero** (menú lateral):
   **Fecha baja** → **Guardar cambios**.
 - **Resultado**: el fallero deja de aparecer en el listado de activos y pasa a
   verse con **Ver bajas**; sus datos e histórico se conservan (RN-07).
-- **Errores / alternativas**: para reactivar a un fallero basta con vaciar su
-  fecha de baja desde la misma pantalla.
+- **Errores / alternativas**: si la fecha de baja es anterior a la de alta, el
+  formulario lo indica y no guarda (RN-07). Para reactivar a un fallero basta
+  con vaciar su fecha de baja desde la misma pantalla.
 
 ### CU-04 — Consulta del censo con filtros
 
