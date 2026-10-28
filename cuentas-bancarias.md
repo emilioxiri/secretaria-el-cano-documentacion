@@ -41,9 +41,15 @@ existentes en la sección Datos bancarios (ver [Censo](censo.md)).
 
 - **RN-01 — Formato de IBAN.** El IBAN se guarda normalizado: en mayúsculas y
   sin espacios. Debe tener al menos 15 caracteres y empezar por dos letras; si
-  no, se rechaza con el aviso de formato no válido.
+  no, se rechaza con el aviso de formato no válido. Además se comprueban los
+  **dígitos de control** del IBAN (norma ISO 13616, módulo 97): un IBAN mal
+  tecleado se rechaza con el aviso "El IBAN no es válido: los dígitos de
+  control no cuadran" en lugar de guardarse y fallar después en la remesa.
 - **RN-02 — IBAN único.** No pueden existir dos cuentas con el mismo IBAN, ni
-  al crear ni al editar.
+  al crear ni al editar. La comparación ignora mayúsculas y espacios, de modo
+  que también detecta cuentas antiguas guardadas con el IBAN agrupado
+  ("ES91 2100 …"). El filtro por IBAN del listado ignora igualmente los
+  espacios.
 - **RN-03 — Referencia de mandato automática e inmutable.** La referencia de
   mandato SEPA se genera automáticamente al crear la cuenta (numeración de
   cuatro cifras, con sufijo distintivo si coincidiera con una referencia
