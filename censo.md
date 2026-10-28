@@ -47,13 +47,16 @@ Pantalla **Ver Falleros** (menú lateral):
 Pantalla **Formulario fallero** (menú lateral):
 
 - **Alta de fallero** con secciones: Datos personales, Dirección, Comisión y
-  cuota, Datos bancarios y Otros (fecha de alta, pulsera).
+  cuota, Datos bancarios y Otros (fecha de alta, pulsera). La **Fecha baja**
+  no se ofrece en el alta: solo tiene sentido sobre un fallero ya existente.
 - **Edición de fallero** (misma pantalla, con el aviso "Estás modificando los
   datos de un fallero existente"): todos los campos editables salvo el
   identificador del censo y el código de Censo JCF, que se muestran solo como
   consulta. Incluye el campo **Fecha baja** para registrar la baja.
 - Selección de la cuenta bancaria para la domiciliación desde un desplegable de
-  cuentas existentes (opción "Sin cuenta bancaria" disponible).
+  cuentas existentes (opción "Sin cuenta bancaria" disponible). En edición, la
+  cuenta que ya tiene asignada el fallero aparece siempre seleccionada, aunque
+  sea una cuenta antigua sin IBAN, para que guardar no la desvincule.
 - Validación campo a campo con mensajes de error visibles junto al formulario.
 - El campo **DNI** se muestra como opcional ("DNI") mientras no haya fecha de
   nacimiento o el fallero sea menor de 16 años, y pasa a obligatorio ("DNI*")
@@ -85,10 +88,12 @@ Pantalla **Formulario fallero** (menú lateral):
   guardar.
 - **RN-06 — Alta con histórico automático.** Al dar de alta un fallero se crea
   automáticamente un registro en su histórico como **VOCAL** del ejercicio
-  actual, con su comisión IM.
+  actual (anotado con el **año de inicio** del ejercicio, p. ej. 2026 para
+  2026-2027, igual que el resto del histórico), con su comisión IM.
 - **RN-07 — La baja es una fecha, nunca un borrado.** Un fallero jamás se
   elimina del censo: la baja se registra rellenando la **Fecha baja** en el
-  formulario de edición. Su histórico y sus datos se conservan.
+  formulario de edición. Su histórico y sus datos se conservan. La fecha de
+  baja no puede ser anterior a la fecha de alta.
 - **RN-08 — El listado muestra activos por defecto.** Las bajas solo se ven al
   pulsar **Ver bajas**; las estadísticas del resumen cuentan únicamente
   falleros activos.

@@ -40,15 +40,24 @@ Pantalla **Ver Usuarios** (menú lateral):
   accesible sin iniciar sesión; con credenciales incorrectas se muestra
   "Usuario o contraseña incorrectos".
 - **RN-02 — Solo entran los usuarios activos.** Un usuario desactivado no
-  puede iniciar sesión aunque sus credenciales sean correctas.
+  puede iniciar sesión aunque sus credenciales sean correctas. Si se le
+  desactiva (o se le cambia el email) mientras tiene la sesión abierta, la
+  sesión se cierra en su siguiente acción con el aviso "Tu usuario ya no está
+  activo o ha cambiado. Vuelve a iniciar sesión", y la cookie de sesión
+  recordada deja de valer.
 - **RN-03 — Sin usuarios activos no hay aplicación.** Si no existe ningún
   usuario activo, la aplicación se detiene mostrando "No hay usuarios activos
-  en la base de datos. Contacta con el administrador".
+  en la base de datos. Contacta con el administrador". Por eso no se permite
+  desactivar al **último usuario activo**: se rechaza con el aviso "No se
+  puede desactivar el último usuario activo…".
 - **RN-04 — Email único y válido.** No pueden existir dos usuarios con el
   mismo email, y el email debe tener un formato válido.
 - **RN-05 — Contraseña mínima y confirmada.** La contraseña debe tener al
-  menos 6 caracteres; al cambiarla se exige escribirla dos veces y ambas deben
-  coincidir.
+  menos 6 caracteres sin contar los espacios del principio y del final; al
+  cambiarla se exige escribirla dos veces y ambas deben coincidir. Los
+  espacios del principio y del final se ignoran (igual que en la pantalla de
+  inicio de sesión), de modo que una contraseña escrita con un espacio de más
+  sigue sirviendo para entrar.
 - **RN-06 — Contraseñas siempre cifradas.** Las contraseñas se guardan
   cifradas; nadie — ni siquiera el administrador — puede consultar una
   contraseña en claro.
@@ -84,8 +93,9 @@ Pantalla **Ver Usuarios** (menú lateral):
   desmarcar **Activo** → **Guardar cambios**.
 - **Resultado**: el usuario ya no puede iniciar sesión (RN-02); su registro se
   conserva (RN-07).
-- **Errores / alternativas**: si se desactivara al último usuario activo, la
-  aplicación quedaría inaccesible (RN-03) — evitarlo operativamente.
+- **Errores / alternativas**: si es el último usuario activo, la aplicación
+  rechaza la desactivación (RN-03). Si el usuario tenía la sesión abierta, se
+  le cierra (RN-02).
 
 ### CU-04 — Cambiar la contraseña de un usuario
 

@@ -84,9 +84,10 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   nivel de nombre, los homónimos se desempatan por fecha de nacimiento
   (RN-13).
 - **RN-08 — Volcado protegido.** El botón **Volcar a Censo** permanece
-  deshabilitado hasta haber ejecutado una comparación con cambios pendientes,
-  y siempre exige confirmación. Tras un volcado o una repoblación se descarta
-  la comparación anterior (ya no es válida) y hay que volver a comparar.
+  deshabilitado hasta haber ejecutado una comparación con cambios pendientes
+  (datos a actualizar o bajas automáticas), y siempre exige confirmación. Tras
+  un volcado o una repoblación se descarta la comparación anterior (ya no es
+  válida) y hay que volver a comparar.
 - **RN-09 — Baja automática de quien ya no está en la JCF.** Al volcar, todo
   fallero activo del censo propio que no figura en el Censo JCF se da de baja
   con la fecha del día del volcado. Los falleros que ya estaban de baja no se
