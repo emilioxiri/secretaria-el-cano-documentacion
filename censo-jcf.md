@@ -85,6 +85,13 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   están en el Censo JCF (normalmente altas nuevas) no se incorporan al censo
   propio, porque la JCF no aporta todos los datos necesarios; la secretaría
   debe darlos de alta a mano. Aparecen en el informe, hoja Solo en CensoJCF.
+- **RN-12 — Los DNI provisionales de la JCF no se vuelcan.** La JCF asigna a
+  quien no tiene DNI (normalmente menores) un código provisional formado por
+  dos letras y su fecha de nacimiento (p. ej. `FN20170504`); los hermanos
+  gemelos comparten el mismo. Estos códigos no son DNI: no se usan para
+  emparejar registros ni se copian al censo, que conserva el DNI vacío. Si dos
+  registros de la JCF aportan el mismo DNI real para falleros distintos, solo
+  se vuelca en el primero y el caso aparece como aviso en el informe.
 
 ## 5. Casos de uso
 
