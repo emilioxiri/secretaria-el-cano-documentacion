@@ -43,9 +43,13 @@ Pantalla **Administración → pestaña Ejercicio**:
   ejercicio ya se generó, el proceso se aborta sin efecto alguno y se muestra
   el aviso "El ejercicio … ya se ha generado. El proceso se ha abortado".
 - **RN-03 — Prolongación del histórico.** Para cada fallero **activo**, se
-  copia su registro de histórico más reciente al año siguiente, manteniendo el
-  cargo y la comisión y dejando la recompensa vacía (las recompensas se ganan,
-  no se arrastran).
+  copia su registro de histórico más reciente al **año del ejercicio que se
+  genera** (su año de inicio: 2026 para 2026-2027), manteniendo el cargo y la
+  comisión y dejando la recompensa vacía (las recompensas se ganan, no se
+  arrastran). Si ese año tiene varios registros, se copia el de directiva.
+  Los falleros que ya tienen registro para ese año (por ejemplo, dados de alta
+  durante el propio ejercicio) se dejan como están, para que nadie quede un
+  año por delante del resto.
 - **RN-04 — Promoción EPIM.** Con la edad calculada a 19 de marzo del cierre
   del nuevo ejercicio, se aplica un único paso de promoción:
   - **E → P**: todo Exento pasa a Pitufo, sin condición de edad.
