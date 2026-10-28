@@ -55,15 +55,25 @@ Pantalla **Formulario fallero** (menú lateral):
 - Selección de la cuenta bancaria para la domiciliación desde un desplegable de
   cuentas existentes (opción "Sin cuenta bancaria" disponible).
 - Validación campo a campo con mensajes de error visibles junto al formulario.
+- El campo **DNI** se muestra como opcional ("DNI") mientras no haya fecha de
+  nacimiento o el fallero sea menor de 16 años, y pasa a obligatorio ("DNI*")
+  en cuanto la fecha de nacimiento indica 16 años o más (RN-02). El cambio es
+  inmediato al introducir la fecha, sin perder lo ya escrito en el DNI.
 
 ## 4. Reglas de negocio
 
 - **RN-01 — Campos obligatorios.** Para guardar un fallero son obligatorios:
   nombre, apellidos, fecha de nacimiento, teléfono, calle, población, código
   postal, comisión MF, comisión IM, cuota EPIM y fecha de alta.
-- **RN-02 — DNI opcional pero verificado.** El DNI es opcional (los menores
-  pueden no tenerlo). Si se informa, debe tener 8 números y una letra, y la
-  letra de control debe ser la correcta; en caso contrario el alta se rechaza.
+- **RN-02 — DNI obligatorio desde los 16 años y siempre verificado.** El DNI
+  es **obligatorio** si el fallero tiene **16 años o más** a la fecha de hoy
+  (edad real, no la del 19 de marzo que usa RN-05) y **opcional** si es menor
+  de 16 años, porque puede no tenerlo. Sin fecha de nacimiento el DNI se
+  considera opcional. Si falta en un fallero de 16 años o más se muestra el
+  aviso "El DNI es obligatorio para falleros de 16 años o más." y no se
+  guarda. Si se informa, debe tener 8 números y una letra, y la letra de
+  control debe ser la correcta; en caso contrario el alta se rechaza. La regla
+  se aplica tanto en el alta como en la edición.
 - **RN-03 — Fecha de nacimiento verosímil.** No puede ser futura ni suponer
   una edad superior a 120 años.
 - **RN-04 — Email con formato válido.** El email es opcional; si se informa,
@@ -98,7 +108,8 @@ Pantalla **Formulario fallero** (menú lateral):
   **Ver Falleros** y su histórico ya contiene el año actual como VOCAL (RN-06).
 - **Errores / alternativas**: si falta un campo obligatorio o la cuota no
   corresponde con la edad, se muestran los errores campo a campo y no se
-  guarda (RN-01, RN-05); si el DNI es incorrecto, se rechaza (RN-02).
+  guarda (RN-01, RN-05); si el DNI es incorrecto, o falta y el fallero tiene
+  16 años o más, se rechaza (RN-02).
 
 ### CU-02 — Edición de datos de un fallero
 
@@ -107,8 +118,11 @@ Pantalla **Formulario fallero** (menú lateral):
 - **Pasos**: **Ver Falleros** → seleccionar al fallero en la tabla → **Editar**
   → modificar los campos → **Guardar cambios**.
 - **Resultado**: mensaje "Fallero actualizado correctamente".
-- **Errores / alternativas**: mismas validaciones que en el alta; **Cancelar**
-  vuelve al listado sin guardar.
+- **Errores / alternativas**: mismas validaciones que en el alta, incluida la
+  obligatoriedad del DNI a partir de 16 años (RN-02): un fallero de 16 años o
+  más que no tenga DNI registrado no podrá guardarse hasta que se informe;
+  cambiar la fecha de nacimiento también vuelve a evaluar la regla.
+  **Cancelar** vuelve al listado sin guardar.
 
 ### CU-03 — Baja de un fallero
 
