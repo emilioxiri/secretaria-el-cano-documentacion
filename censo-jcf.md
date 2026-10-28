@@ -18,6 +18,8 @@ propio con plena trazabilidad.
 - **Comparación (dry-run / simulación)**: cálculo de diferencias entre el
   Censo JCF y el censo propio **sin aplicar ningún cambio**.
 - **Volcado**: aplicación de las diferencias detectadas sobre el censo propio.
+- **Baja automática**: baja que el volcado registra, con fecha del día, para
+  los falleros activos del censo propio que no aparecen en el Censo JCF.
 - **Registro ambiguo**: registro de la JCF que podría corresponder a más de un
   fallero del censo; la aplicación no lo toca y lo señala para revisión
   manual.
@@ -33,12 +35,15 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   nombre y DNI, y paginación.
 - **Comparar JCF con Censo**:
   - **Comparar (dry-run)**: calcula las diferencias y muestra los indicadores
-    "Falleros con cambios", "Solo en JCF", "Ambiguos" y "Total cambios de
-    campo".
+    "Falleros con cambios", "Solo en JCF", "Ambiguos", "Total cambios de
+    campo" y "Bajas automáticas".
   - **Descargar informe (.xlsx)**: Excel con hojas Resumen, Actualizaciones,
-    Solo en CensoJCF, Solo en Censo y Avisos.
-  - **Volcar a Censo**: aplica los cambios al censo propio, con diálogo de
-    confirmación que indica cuántos falleros se actualizarán.
+    Solo en CensoJCF, Solo en Censo y Avisos. El Resumen incluye "Falleros
+    que se darán de baja" y la hoja Solo en Censo indica, por fallero, si "Se
+    dará de baja".
+  - **Volcar a Censo**: aplica los cambios al censo propio y da de baja a los
+    falleros que ya no figuran en la JCF, con diálogo de confirmación que
+    indica cuántos falleros se actualizarán y cuántos se darán de baja.
 
 ## 4. Reglas de negocio
 
@@ -63,8 +68,30 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   consta en el censo; los registros ambiguos no se modifican (quedan en el
   informe para revisión manual).
 - **RN-08 — Volcado protegido.** El botón **Volcar a Censo** permanece
-  deshabilitado hasta haber ejecutado una comparación con cambios pendientes,
-  y siempre exige confirmación.
+  deshabilitado hasta haber ejecutado una comparación con cambios pendientes
+  (datos a actualizar o bajas automáticas), y siempre exige confirmación.
+- **RN-09 — Baja automática de quien ya no está en la JCF.** Al volcar, todo
+  fallero activo del censo propio que no figura en el Censo JCF se da de baja
+  con la fecha del día del volcado. Los falleros que ya estaban de baja no se
+  tocan (se conserva su fecha de baja original). Como cualquier baja, el
+  fallero no se borra y puede reactivarse vaciando su fecha de baja desde el
+  censo.
+- **RN-10 — Excepciones a la baja automática.** No se da de baja a nadie si
+  el Censo JCF está vacío (evita dar de baja a todo el censo por error), ni a
+  los falleros implicados en un registro ambiguo, porque podrían ser la
+  persona que la JCF sí tiene censada; quedan en el informe para revisión
+  manual.
+- **RN-11 — Las altas nuevas de la JCF no se crean.** Los registros que solo
+  están en el Censo JCF (normalmente altas nuevas) no se incorporan al censo
+  propio, porque la JCF no aporta todos los datos necesarios; la secretaría
+  debe darlos de alta a mano. Aparecen en el informe, hoja Solo en CensoJCF.
+- **RN-12 — Los DNI provisionales de la JCF no se vuelcan.** La JCF asigna a
+  quien no tiene DNI (normalmente menores) un código provisional formado por
+  dos letras y su fecha de nacimiento (p. ej. `FN20170504`); los hermanos
+  gemelos comparten el mismo. Estos códigos no son DNI: no se usan para
+  emparejar registros ni se copian al censo, que conserva el DNI vacío. Si dos
+  registros de la JCF aportan el mismo DNI real para falleros distintos, solo
+  se vuelca en el primero y el caso aparece como aviso en el informe.
 
 ## 5. Casos de uso
 
@@ -95,16 +122,22 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
 ### CU-03 — Volcar las diferencias al censo
 
 - **Actor**: secretario/a.
-- **Precondición**: se ha ejecutado una comparación y hay falleros con cambios.
+- **Precondición**: se ha ejecutado una comparación y hay falleros con cambios
+  o bajas automáticas pendientes.
 - **Pasos**: **Volcar a Censo** → revisar el aviso con el número de falleros a
-  actualizar → **Sí, aplicar volcado**.
-- **Resultado**: mensaje "Volcado completado: … fallero(s) actualizados en
-  Censo"; las diferencias se recalcularon justo antes de aplicarse (RN-06).
-- **Errores / alternativas**: si tras recalcular no queda nada pendiente, se
-  informa "No hay cambios pendientes que aplicar"; los registros ambiguos no
-  se tocan (RN-07).
+  actualizar y a dar de baja → **Sí, aplicar volcado**.
+- **Resultado**: mensaje "Volcado completado: … fallero(s) actualizados y …
+  dado(s) de baja en Censo"; las diferencias se recalcularon justo antes de
+  aplicarse (RN-06) y los falleros ausentes de la JCF quedan de baja con
+  fecha del día (RN-09). Tras el volcado hay que volver a comparar para ver
+  el nuevo estado.
+- **Errores / alternativas**: los registros ambiguos y sus falleros no se
+  tocan (RN-07, RN-10); las altas nuevas de la JCF no se crean (RN-11). Si
+  algún fallero se dio de baja por error, se reactiva vaciando su fecha de
+  baja en el censo.
 
 ## 6. Relación con otros dominios
 
 - [Censo](censo.md) — el volcado actualiza los datos de los falleros del censo
-  propio y vincula su código JCF.
+  propio, vincula su código JCF y da de baja a quienes ya no figuran en la
+  JCF.
