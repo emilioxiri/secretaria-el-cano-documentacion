@@ -23,6 +23,12 @@ propio con plena trazabilidad.
 - **Registro ambiguo**: registro de la JCF que podría corresponder a más de un
   fallero del censo; la aplicación no lo toca y lo señala para revisión
   manual.
+- **Homónimos**: falleros del censo con exactamente el mismo nombre y
+  apellidos (por ejemplo, una abuela y su nieta). Para distinguirlos se usa su
+  fecha de nacimiento (ver RN-13).
+- **Emparejado por**: columna de la hoja Actualizaciones del informe que
+  indica cómo se identificó al fallero: por código JCF, por DNI, por nombre o
+  por nombre y fecha de nacimiento (`nombre+f_nacimiento`).
 
 ## 3. Funcionalidades
 
@@ -50,13 +56,16 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
 - **RN-01 — La repoblación reemplaza todo.** Importar el fichero vacía la
   copia local del Censo JCF y la sustituye íntegramente por el contenido del
   Excel; se pide confirmación expresa antes de hacerlo.
-- **RN-02 — DNIs duplicados bloquean la importación.** Si el fichero contiene
-  DNIs repetidos, la importación completa se rechaza indicando cuáles son.
+- **RN-02 — Duplicados bloquean la importación.** Si el fichero contiene DNIs
+  o códigos JCF (COD.JCF) repetidos, la importación completa se rechaza
+  indicando cuáles son, **antes** de vaciar la copia local, que queda intacta.
 - **RN-03 — El fichero debe ser el oficial.** Si las cabeceras del Excel no
   son las esperadas, el fichero se rechaza mostrando las cabeceras recibidas.
 - **RN-04 — Fechas de nacimiento incompletas.** Los registros cuya fecha de
   nacimiento solo indica el año se importan sin fecha de nacimiento y se
-  informa de cuántos son.
+  informa de cuántos son. Se aceptan fechas completas en formato DD-MM-AAAA,
+  DD/MM/AAAA o como celda de fecha de Excel. Los códigos postales numéricos
+  recuperan el cero inicial (3001 → 03001).
 - **RN-05 — La comparación no modifica nada.** El dry-run es una simulación:
   calcula y muestra las diferencias y permite exportarlas a Excel, sin tocar
   el censo.
@@ -67,9 +76,17 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   únicamente los campos en los que la JCF aporta un valor distinto del que
   consta en el censo; los registros ambiguos no se modifican (quedan en el
   informe para revisión manual).
+- **RN-07b — Un registro JCF por fallero.** Cada fallero del censo se empareja
+  como mucho con un registro JCF. El emparejamiento se hace por niveles (código
+  JCF, luego DNI, luego nombre) y un fallero emparejado en un nivel no vuelve a
+  emparejarse en otro. Si varios registros JCF apuntan al mismo fallero en el
+  mismo nivel, todos se marcan como ambiguos y no se actualiza nada. En el
+  nivel de nombre, los homónimos se desempatan por fecha de nacimiento
+  (RN-13).
 - **RN-08 — Volcado protegido.** El botón **Volcar a Censo** permanece
-  deshabilitado hasta haber ejecutado una comparación con cambios pendientes
-  (datos a actualizar o bajas automáticas), y siempre exige confirmación.
+  deshabilitado hasta haber ejecutado una comparación con cambios pendientes,
+  y siempre exige confirmación. Tras un volcado o una repoblación se descarta
+  la comparación anterior (ya no es válida) y hay que volver a comparar.
 - **RN-09 — Baja automática de quien ya no está en la JCF.** Al volcar, todo
   fallero activo del censo propio que no figura en el Censo JCF se da de baja
   con la fecha del día del volcado. Los falleros que ya estaban de baja no se
@@ -89,9 +106,25 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   quien no tiene DNI (normalmente menores) un código provisional formado por
   dos letras y su fecha de nacimiento (p. ej. `FN20170504`); los hermanos
   gemelos comparten el mismo. Estos códigos no son DNI: no se usan para
-  emparejar registros ni se copian al censo, que conserva el DNI vacío. Si dos
+  emparejar registros por DNI ni se copian al censo, que conserva el DNI
+  vacío; solo se aprovecha la fecha que contienen para desempatar homónimos
+  (RN-13). Si dos
   registros de la JCF aportan el mismo DNI real para falleros distintos, solo
   se vuelca en el primero y el caso aparece como aviso en el informe.
+- **RN-13 — Homónimos: desempate por fecha de nacimiento exacta.** Cuando un
+  registro de la JCF solo puede emparejarse por nombre y en el censo hay
+  varios falleros con ese mismo nombre y apellidos, se elige al que tiene
+  **exactamente la misma fecha de nacimiento** que el registro JCF. La fecha
+  de la JCF es su fecha de nacimiento o, si no la tiene, la contenida en su
+  DNI provisional (p. ej. `FN20150312` → 12/03/2015). Si exactamente un
+  fallero coincide, se empareja con él y el informe lo indica en la columna
+  "Emparejado por" como `nombre+f_nacimiento`. Si no coincide ninguno (falta
+  la fecha en el censo o en la JCF) o coinciden varios (homónimos nacidos el
+  mismo día, como gemelos), el registro queda ambiguo y no se actualiza. No se
+  admiten coincidencias aproximadas ni solo por año. Si dos registros JCF se
+  resuelven así hacia el mismo fallero, ambos quedan ambiguos (RN-07b). El
+  aviso de ambigüedad indica: "Revisa que la fecha de nacimiento o el DNI de
+  esos falleros estén informados en el Censo. IdCenso posibles: …".
 
 ## 5. Casos de uso
 
@@ -117,7 +150,9 @@ Pantalla **Administración → pestaña Censo JCF**, con tres secciones:
   (RN-05); el Excel documenta cada cambio propuesto, los registros solo
   presentes en un censo, los ambiguos y los avisos.
 - **Errores / alternativas**: sin diferencias → "No se detectaron diferencias
-  entre CensoJCF y Censo".
+  entre CensoJCF y Censo". Si aparecen registros ambiguos por homónimos, se
+  completa en el censo la fecha de nacimiento o el DNI de los falleros
+  indicados en el aviso (IdCenso posibles) y se vuelve a comparar (RN-13).
 
 ### CU-03 — Volcar las diferencias al censo
 
