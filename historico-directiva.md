@@ -49,7 +49,8 @@ Pantalla **Administración → pestaña Directiva**:
   [Censo](censo.md)).
 - **RN-03 — Un cargo de directiva por fallero y año.** Al asignar un cargo a
   un fallero que ya tiene cargo de directiva ese año, no se acumulan: el cargo
-  anterior se sustituye por el nuevo.
+  anterior se sustituye por el nuevo. (Ampliada por RN-09: lo mismo ocurre si
+  el registro del año es el de VOCAL.)
 - **RN-04 — El cambio de cargo conserva el resto del registro.** Cambiar el
   cargo de un fallero para un año es una operación única que mantiene la
   comisión y la recompensa que tuviera ese registro.
@@ -65,6 +66,17 @@ Pantalla **Administración → pestaña Directiva**:
   sustituye a la que hubiera.
 - **RN-08 — Asignación de cargos solo a falleros activos.** El diálogo
   "Asignar cargo a fallero" solo ofrece falleros activos.
+- **RN-09 — Asignar un cargo modifica el registro del año.** Si el fallero ya
+  tiene un registro en ese año (por ejemplo el de VOCAL creado en el alta), al
+  asignarle un cargo de directiva se modifica ese mismo registro, conservando
+  su comisión, recompensa y fecha de baja; no se crea un segundo registro. Si
+  no tenía ninguno ese año, se crea uno nuevo. Si ya tenía ese mismo cargo, no
+  se produce ningún cambio ni error.
+- **RN-10 — Quitar un cargo de directiva deja al fallero como VOCAL.** Al
+  quitar el cargo, el registro de ese año pasa a VOCAL (conservando comisión,
+  recompensa y fecha de baja) en lugar de borrarse, de modo que el fallero no
+  se queda sin histórico ese año. Si el fallero ya tenía además un registro de
+  VOCAL ese año, se elimina únicamente el registro del cargo de directiva.
 
 ## 5. Casos de uso
 
@@ -98,7 +110,8 @@ Pantalla **Administración → pestaña Directiva**:
 - **Resultado**: mensaje "Cargo asignado correctamente a … para el ejercicio
   …"; el fallero aparece en la tabla de la directiva del año actual.
 - **Errores / alternativas**: si el fallero ya tenía un cargo ese año, se
-  sustituye por el nuevo (RN-03).
+  sustituye por el nuevo (RN-03). Si solo tenía el registro de VOCAL, ese
+  registro pasa a ser el nuevo cargo, sin crear uno adicional (RN-09).
 
 ### CU-04 — Corregir la directiva de un año
 
@@ -109,7 +122,8 @@ Pantalla **Administración → pestaña Directiva**:
   **Cambiar cargo** (con el nuevo cargo) o **Quitar cargo** → **Aplicar
   cambio**.
 - **Resultado**: mensaje de confirmación del cambio o retirada; la tabla se
-  actualiza.
+  actualiza. Al quitar un cargo, el fallero queda como VOCAL ese año y deja de
+  aparecer en la directiva (RN-10).
 - **Errores / alternativas**: cambiar a un cargo que el fallero ya tiene ese
   año se rechaza como duplicado (RN-01).
 
