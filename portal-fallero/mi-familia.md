@@ -14,7 +14,8 @@ Secretaría y sin dar acceso al resto del censo ni a otras familias.
   Secretaría (ver
   [Familias](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/familias.md)).
 - **Mayor de edad**: 18 años cumplidos a fecha de hoy según la fecha de
-  nacimiento registrada por secretaría.
+  nacimiento registrada, que el propio fallero puede corregir en
+  [Mis datos](mis-datos.md).
 - **Identificación de un miembro**: para añadir a alguien a la familia se
   indican su nº de fallero y su fecha de nacimiento; el portal nunca muestra
   listados del censo.
@@ -51,7 +52,9 @@ depende de la situación del fallero:
 
 - **RN-01 — Solo mayores de edad.** Solo los falleros activos y mayores de
   edad ven **Mi familia** y pueden hacer cualquier operación de familias. Sin
-  fecha de nacimiento registrada no se considera mayor de edad.
+  fecha de nacimiento registrada no se considera mayor de edad. Como el
+  fallero puede corregir su fecha de nacimiento ([Mis datos](mis-datos.md),
+  RN-10), el acceso cambia en cuanto la guarda.
 - **RN-02 — Solo la familia propia.** El fallero solo ve la familia a la que
   pertenece; no ve otras familias ni listados del censo.
 - **RN-03 — Solo el cabeza modifica.** Únicamente el cabeza de familia puede

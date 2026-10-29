@@ -49,14 +49,14 @@ Menú lateral, una vez dentro:
   pone el contador a cero. Los dos valores (5 y 15) son configurables en la
   instalación. El contador se pierde si el portal se reinicia.
 - **RN-05 — Sesión revocada.** Si mientras el fallero está dentro secretaría le
-  da de baja o le cambia el DNI (o lo cambia él mismo desde **Mis datos**), en
-  su siguiente acción la sesión se cierra con el aviso "Tus datos de acceso han
+  da de baja o le cambia el DNI, en su siguiente acción la sesión se cierra con el aviso "Tus datos de acceso han
   cambiado o ya no estás activo. Vuelve a iniciar sesión.".
 - **RN-06 — Sesión no persistente.** No hay opción de "recordarme": recargar la
   página o cerrar la pestaña cierra la sesión.
 - **RN-07 — Menú según la edad.** **Mis datos** aparece siempre. **Mi familia**
   solo aparece para falleros mayores de edad (18 años cumplidos a fecha de hoy
-  según la fecha de nacimiento registrada por secretaría).
+  según la fecha de nacimiento registrada, que el propio fallero puede corregir
+  en **Mis datos**).
 
 ## 5. Casos de uso
 
@@ -86,7 +86,8 @@ Menú lateral, una vez dentro:
 
 ## 6. Relación con otros dominios
 
-- [Mis datos](mis-datos.md) — cambiar el DNI cambia la contraseña del portal.
+- [Mis datos](mis-datos.md) — el DNI se ve en solo lectura; solo secretaría
+  lo cambia.
 - [Mi familia](mi-familia.md) — solo accesible para mayores de edad.
 - [Censo (Secretaría)](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/censo.md)
   — el nº de fallero, el DNI, la fecha de nacimiento y la baja vienen del censo

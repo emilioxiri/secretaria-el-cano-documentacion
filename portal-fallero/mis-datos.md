@@ -4,30 +4,35 @@
 
 ## 1. Propósito
 
-Que cada fallero mantenga al día sus datos de contacto y su dirección sin pasar
-por secretaría, usando el mismo formulario y las mismas validaciones que la
+Que cada fallero mantenga al día sus datos de contacto, su fecha de nacimiento
+y su dirección sin pasar por secretaría, usando el mismo formulario y las mismas validaciones que la
 edición de un fallero en Secretaría.
 
 ## 2. Conceptos
 
-- **Datos editables**: los datos personales y de dirección que el fallero puede
-  cambiar por sí mismo.
-- **Datos reservados a secretaría**: los que afectan a la gestión de la falla
-  (fecha de nacimiento, comisiones, cuota, cuenta bancaria, fechas de alta y
-  baja, pulsera y nº de censo JCF). No se muestran en el portal.
+- **Datos editables**: los datos personales, la fecha de nacimiento y la
+  dirección, que el fallero puede cambiar por sí mismo.
+- **Datos de solo lectura**: el DNI (es la contraseña del portal) y la cuenta
+  bancaria. Se muestran, pero solo los cambia secretaría.
+- **Datos reservados a secretaría**: comisiones, cuota, fechas de alta y baja,
+  pulsera y nº de censo JCF. No se muestran en el portal.
 
 ## 3. Funcionalidades
 
 Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 
-- Aviso: "Revisa y actualiza tus datos. Para cambiar la fecha de nacimiento,
-  la comisión, la cuota o los datos bancarios contacta con secretaría."
+- Aviso: "Revisa y actualiza tus datos. El DNI, la comisión, la cuota y los
+  datos bancarios solo los puede cambiar secretaría."
 - Sección **Datos personales**:
   - **ID Censo**: solo lectura.
-  - **Nombre\***, **Apellidos\***, **DNI\***, **Teléfono\*** y **Email**.
-  - Debajo del DNI: "Tu DNI es tu contraseña de acceso: si lo cambias, tendrás
-    que volver a entrar con el nuevo."
+  - **Nombre\***, **Apellidos\***, **Fecha de nacimiento\***, **Teléfono\*** y
+    **Email**.
+  - **DNI**: solo lectura, con la nota "Tu DNI es tu contraseña de acceso.
+    Para cambiarlo contacta con secretaría."
 - Sección **Dirección**: **Calle\***, **Población\*** y **Código Postal\***.
+- Sección **Datos bancarios**: **Cuenta bancaria (IBAN)** en solo lectura,
+  con parte del número oculto (por ejemplo "ES91 \*\*\*\* \*\*\*\* \*\*\*\*
+  \*\*\*\* 1332"), o "— Sin cuenta bancaria —" si no tiene ninguna asignada.
 - **Guardar cambios**: valida y guarda.
 - **Descartar cambios**: vuelve a cargar los datos guardados.
 
@@ -36,25 +41,39 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 - **RN-01 — Solo los datos propios.** El fallero solo ve y modifica su propia
   ficha; no tiene acceso a los datos de ningún otro fallero.
 - **RN-02 — Campos editables limitados.** Solo se pueden cambiar nombre,
-  apellidos, DNI, teléfono, email, calle, población y código postal. El resto
-  de la ficha solo lo cambia secretaría y no se muestra en el portal.
-- **RN-03 — Mismas validaciones que Secretaría.** Nombre, apellidos, teléfono,
-  calle, población y código postal son obligatorios; el email, si se indica,
-  debe tener un formato válido; el DNI/NIE debe tener un formato válido y la
-  letra de control correcta.
-- **RN-04 — DNI siempre obligatorio.** A diferencia de Secretaría (obligatorio
-  a partir de 16 años), en el portal el DNI no se puede dejar vacío porque es
-  la contraseña: "El DNI es obligatorio: es tu contraseña de acceso al portal."
-- **RN-05 — DNI único.** No se puede guardar un DNI que ya tenga otro fallero:
-  "Error al actualizar fallero: Ya existe un fallero con el DNI …".
-- **RN-06 — Cambiar el DNI cambia la contraseña.** Al guardar un DNI nuevo, la
-  sesión se cierra y hay que volver a entrar con el DNI nuevo (ver
-  [Acceso](acceso.md), RN-05).
-- **RN-07 — Normalización.** Al guardar se quitan los espacios sobrantes, el
-  DNI se guarda en mayúsculas y el email en minúsculas.
+  apellidos, fecha de nacimiento, teléfono, email, calle, población y código
+  postal. El DNI y la cuenta bancaria se muestran en solo lectura (RN-09,
+  RN-11); el resto de la ficha solo lo cambia secretaría y no se muestra.
+- **RN-03 — Mismas validaciones que Secretaría.** Nombre, apellidos, fecha de
+  nacimiento, teléfono, calle, población y código postal son obligatorios; la
+  fecha de nacimiento no puede ser futura ni de hace más de 120 años; el email,
+  si se indica, debe tener un formato válido.
+- **RN-04 — (Retirada) DNI siempre obligatorio.** Retirada al pasar el DNI a
+  solo lectura (RN-09): el fallero ya no puede vaciarlo.
+- **RN-05 — (Retirada) DNI único.** Retirada al pasar el DNI a solo lectura
+  (RN-09); la unicidad la sigue controlando Secretaría.
+- **RN-06 — (Retirada) Cambiar el DNI cambia la contraseña.** Retirada al
+  pasar el DNI a solo lectura (RN-09).
+- **RN-07 — Normalización.** Al guardar se quitan los espacios sobrantes y el
+  email se guarda en minúsculas.
 - **RN-08 — Avisos de error.** Los errores de un campo aparecen bajo el
   formulario en cuanto se modifica ese campo, y todos a la vez al pulsar
   **Guardar cambios**. Con errores no se guarda nada.
+- **RN-09 — DNI en solo lectura.** El DNI es la contraseña del portal y solo
+  lo cambia secretaría. Si secretaría lo cambia mientras el fallero está
+  dentro, su sesión se cierra (ver [Acceso](acceso.md), RN-05).
+- **RN-10 — Fecha de nacimiento editable.** El fallero puede corregir su fecha
+  de nacimiento. El cambio tiene efecto inmediato:
+  - Decide si es mayor de edad y, por tanto, si ve **Mi familia** (ver
+    [Mi familia](mi-familia.md), RN-01).
+  - Es la fecha con la que se le identifica al añadirle a una familia.
+  - Secretaría calcula con ella la categoría de cuota (EPIM): si deja de
+    corresponder con la cuota asignada, Secretaría lo avisa la próxima vez
+    que edite la ficha del fallero y no deja guardarla hasta corregir la
+    cuota.
+- **RN-11 — Cuenta bancaria en solo lectura.** Se muestra la cuenta en la que
+  se domicilia la cuota, con solo los 4 primeros y los 4 últimos caracteres
+  visibles. Para cambiarla hay que contactar con secretaría.
 
 ## 5. Casos de uso
 
@@ -68,14 +87,9 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 - **Errores / alternativas**: con un campo obligatorio vacío o un email no
   válido se muestra el error y no se guarda (RN-03).
 
-### CU-02 — Cambiar el DNI
+### CU-02 — (Retirado) Cambiar el DNI
 
-- **Actor**: fallero.
-- **Pasos**: **Mis datos** → escribir el DNI nuevo → **Guardar cambios**.
-- **Resultado**: la sesión se cierra con el aviso de que los datos de acceso
-  han cambiado; se entra de nuevo con el DNI nuevo (RN-06).
-- **Errores / alternativas**: DNI vacío (RN-04), mal formado o con letra
-  incorrecta (RN-03) o ya usado por otro fallero (RN-05).
+El DNI ya no se cambia desde el portal (RN-09): lo cambia secretaría.
 
 ### CU-03 — Descartar cambios
 
@@ -83,8 +97,23 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 - **Pasos**: modificar campos → **Descartar cambios**.
 - **Resultado**: el formulario vuelve a mostrar los datos guardados.
 
+### CU-04 — Corregir la fecha de nacimiento
+
+- **Actor**: fallero.
+- **Pasos**: **Mis datos** → **Fecha de nacimiento\*** → elegir la fecha
+  correcta → **Guardar cambios**.
+- **Resultado**: mensaje "Fallero actualizado correctamente."; si con la nueva
+  fecha pasa a ser (o deja de ser) mayor de edad, el menú muestra (u oculta)
+  **Mi familia** (RN-10).
+- **Errores / alternativas**: fecha vacía, futura o de hace más de 120 años
+  (RN-03).
+
 ## 6. Relación con otros dominios
 
 - [Acceso](acceso.md) — el DNI es la contraseña del portal.
+- [Mi familia](mi-familia.md) — la fecha de nacimiento decide si el fallero es
+  mayor de edad.
 - [Censo (Secretaría)](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/censo.md)
   — es la misma ficha del censo; los datos reservados los gestiona secretaría.
+- [Cuentas bancarias (Secretaría)](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/cuentas-bancarias.md)
+  — la cuenta que se muestra es la que secretaría tiene asignada al fallero.

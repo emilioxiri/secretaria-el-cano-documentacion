@@ -10,7 +10,8 @@ reglas de negocio y casos de uso tal y como se ven en pantalla.
 El Portal Fallero es la aplicación de autoservicio de los falleros. Cada
 fallero entra con su número de fallero y su DNI y puede:
 
-- Revisar y actualizar sus datos personales y su dirección.
+- Revisar y actualizar sus datos personales, su fecha de nacimiento y su
+  dirección, y consultar su DNI y su cuenta bancaria.
 - Si es mayor de edad, crear y gestionar su familia.
 
 El portal trabaja sobre **los mismos datos que la aplicación de Secretaría**:
@@ -25,7 +26,7 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 
 | Opción de menú | Quién la ve | Qué contiene |
 |---|---|---|
-| **Mis datos** | Todos los falleros | Formulario con sus datos personales y su dirección, en modo edición. Es la pantalla de entrada. |
+| **Mis datos** | Todos los falleros | Formulario con sus datos personales, fecha de nacimiento y dirección, en modo edición, más el DNI y la cuenta bancaria en solo lectura. Es la pantalla de entrada. |
 | **Mi familia** | Solo falleros mayores de edad | Su familia: miembros, cabeza de familia y, si es el cabeza, la gestión de la familia. |
 
 ## Mapa de documentos
@@ -41,8 +42,9 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 | Aspecto | Secretaría | Portal Fallero |
 |---|---|---|
 | Quién entra | Usuarios de la secretaría (email y contraseña) | Cada fallero activo con DNI (nº de fallero y DNI) |
-| Datos del fallero | Todos los falleros, todos los campos | Solo los suyos y solo datos personales y dirección |
-| DNI | Obligatorio a partir de 16 años | Siempre obligatorio: es la contraseña |
+| Datos del fallero | Todos los falleros, todos los campos | Solo los suyos: datos personales, fecha de nacimiento y dirección |
+| DNI | Editable; obligatorio a partir de 16 años | Solo lectura: es la contraseña |
+| Cuenta bancaria | Se elige entre las cuentas de la falla | Solo lectura, con parte del número oculto |
 | Familias | Todas las familias | Solo la suya y solo si es mayor de edad |
 | Añadir miembros | Desplegable con los falleros sin familia | Nº de fallero y fecha de nacimiento del miembro |
 | Mover de familia | Sí | No (lo hace Secretaría) |
@@ -54,7 +56,7 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 |---|---|
 | **Nº de fallero** | Número del fallero en el censo de la falla (el "ID Censo" de Secretaría). Es el usuario del portal. |
 | **DNI** | DNI o NIE del fallero tal como figura en el censo. Es la contraseña del portal. |
-| **Mayor de edad** | Fallero con 18 años cumplidos a fecha de hoy según la fecha de nacimiento registrada por secretaría. Sin fecha de nacimiento registrada no se considera mayor de edad. |
+| **Mayor de edad** | Fallero con 18 años cumplidos a fecha de hoy según la fecha de nacimiento registrada (que el fallero puede corregir en **Mis datos**). Sin fecha de nacimiento registrada no se considera mayor de edad. |
 | **Fallero activo** | Fallero sin fecha de baja. |
 | **Cabeza de familia** | Fallero que encabeza una familia y el único que puede modificarla desde el portal. |
 | **Comisión MF** | Comisión masculina o femenina asignada por secretaría. Es necesaria para poder crear una familia. |

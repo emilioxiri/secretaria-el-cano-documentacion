@@ -39,6 +39,15 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 | Usuarios y control de acceso | [usuarios-acceso.md](usuarios-acceso.md) |
 | Catálogos de referencia | [catalogos.md](catalogos.md) |
 
+## Portal Fallero
+
+Los falleros disponen además del **Portal Fallero El Cano**, una aplicación de
+autoservicio que trabaja sobre los mismos datos: cada fallero entra con su nº
+de fallero y su DNI, actualiza sus datos y, si es mayor de edad, gestiona su
+familia. Lo que hace desde el portal se ve al momento en Secretaría. Su
+documentación funcional está en
+[portal-fallero](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/portal-fallero/index.md).
+
 ## Mapa de conceptos de negocio
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
