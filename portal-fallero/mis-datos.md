@@ -65,7 +65,8 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 - **RN-10 — Fecha de nacimiento editable.** El fallero puede corregir su fecha
   de nacimiento. El cambio tiene efecto inmediato:
   - Decide si es mayor de edad y, por tanto, si ve **Mi familia** (ver
-    [Mi familia](mi-familia.md), RN-01).
+    [Mi familia](mi-familia.md), RN-01). Por eso un menor no puede pasar a
+    mayor de edad desde el portal (RN-13).
   - Es la fecha con la que se le identifica al añadirle a una familia.
   - Secretaría calcula con ella la categoría de cuota (EPIM). Por eso el
     portal no admite una fecha que cambie la cuota asignada (RN-12).
@@ -78,10 +79,18 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
   Infantil hasta 15, Mayor desde 16). Así, un fallero de cuota Mayor puede
   corregir su fecha libremente mientras siga teniendo 16 años o más, y un
   infantil no puede pasar a otra categoría. Si la fecha cambia la categoría,
-  no se guarda y se muestra: "Con esa fecha de nacimiento tu cuota pasaría de
-  «…» a «…». Para corregirla contacta con secretaría.". No se comprueba si la
+  no se guarda y se muestra el aviso genérico "Esa fecha de nacimiento no se
+  puede guardar desde el portal. Si es correcta, contacta con secretaría.",
+  que a propósito no indica qué fechas se aceptarían. No se comprueba si la
   fecha no cambia (para no impedir guardar otros datos) ni si el fallero
   todavía no tiene cuota asignada.
+- **RN-13 — Un menor no puede pasar a mayor de edad.** Si según la fecha de
+  nacimiento guardada el fallero es menor de 18 años, la fecha nueva también
+  tiene que dejarle como menor: por ejemplo, con 16 años y cuota Mayor puede
+  ponerse como mucho 17 años. Si la fecha le haría mayor de edad, no se guarda
+  y se muestra el mismo aviso genérico de RN-12; si la fecha es correcta, la
+  cambia secretaría. Si no hay fecha guardada esta regla no se aplica (sí la
+  de la cuota, RN-12), para que las fichas sin fecha puedan completarse.
 
 ## 5. Casos de uso
 
@@ -114,8 +123,9 @@ El DNI ya no se cambia desde el portal (RN-09): lo cambia secretaría.
   fecha pasa a ser (o deja de ser) mayor de edad, el menú muestra (u oculta)
   **Mi familia** (RN-10).
 - **Errores / alternativas**: fecha vacía, futura o de hace más de 120 años
-  (RN-03); fecha que cambia la categoría de cuota (RN-12): hay que pedir la
-  corrección a secretaría.
+  (RN-03); fecha que cambia la categoría de cuota (RN-12) o que convertiría a
+  un menor en mayor de edad (RN-13): hay que pedir la corrección a
+  secretaría.
 
 ## 6. Relación con otros dominios
 

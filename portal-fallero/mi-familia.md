@@ -54,7 +54,8 @@ depende de la situación del fallero:
   edad ven **Mi familia** y pueden hacer cualquier operación de familias. Sin
   fecha de nacimiento registrada no se considera mayor de edad. Como el
   fallero puede corregir su fecha de nacimiento ([Mis datos](mis-datos.md),
-  RN-10), el acceso cambia en cuanto la guarda.
+  RN-10), el acceso cambia en cuanto la guarda; un menor, sin embargo, no
+  puede ponerse una fecha de mayor de edad desde el portal (Mis datos, RN-13).
 - **RN-02 — Solo la familia propia.** El fallero solo ve la familia a la que
   pertenece; no ve otras familias ni listados del censo.
 - **RN-03 — Solo el cabeza modifica.** Únicamente el cabeza de familia puede
