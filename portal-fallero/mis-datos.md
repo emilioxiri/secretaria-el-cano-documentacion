@@ -67,13 +67,21 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
   - Decide si es mayor de edad y, por tanto, si ve **Mi familia** (ver
     [Mi familia](mi-familia.md), RN-01).
   - Es la fecha con la que se le identifica al añadirle a una familia.
-  - Secretaría calcula con ella la categoría de cuota (EPIM): si deja de
-    corresponder con la cuota asignada, Secretaría lo avisa la próxima vez
-    que edite la ficha del fallero y no deja guardarla hasta corregir la
-    cuota.
+  - Secretaría calcula con ella la categoría de cuota (EPIM). Por eso el
+    portal no admite una fecha que cambie la cuota asignada (RN-12).
 - **RN-11 — Cuenta bancaria en solo lectura.** Se muestra la cuenta en la que
   se domicilia la cuota, con solo los 4 primeros y los 4 últimos caracteres
   visibles. Para cambiarla hay que contactar con secretaría.
+- **RN-12 — La fecha de nacimiento no cambia la cuota.** Una fecha de
+  nacimiento nueva solo se guarda si mantiene la categoría de cuota EPIM que
+  el fallero tiene asignada (edad a 19 de marzo: Exento, Pitufo hasta 4 años,
+  Infantil hasta 15, Mayor desde 16). Así, un fallero de cuota Mayor puede
+  corregir su fecha libremente mientras siga teniendo 16 años o más, y un
+  infantil no puede pasar a otra categoría. Si la fecha cambia la categoría,
+  no se guarda y se muestra: "Con esa fecha de nacimiento tu cuota pasaría de
+  «…» a «…». Para corregirla contacta con secretaría.". No se comprueba si la
+  fecha no cambia (para no impedir guardar otros datos) ni si el fallero
+  todavía no tiene cuota asignada.
 
 ## 5. Casos de uso
 
@@ -106,7 +114,8 @@ El DNI ya no se cambia desde el portal (RN-09): lo cambia secretaría.
   fecha pasa a ser (o deja de ser) mayor de edad, el menú muestra (u oculta)
   **Mi familia** (RN-10).
 - **Errores / alternativas**: fecha vacía, futura o de hace más de 120 años
-  (RN-03).
+  (RN-03); fecha que cambia la categoría de cuota (RN-12): hay que pedir la
+  corrección a secretaría.
 
 ## 6. Relación con otros dominios
 
