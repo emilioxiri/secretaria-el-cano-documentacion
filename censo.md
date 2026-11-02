@@ -37,9 +37,11 @@ Pantalla **Ver Falleros** (menú lateral):
 - Consultar el **Resumen del censo activo**: falleros activos, hombres y
   mujeres de comisión mayor, hombres y mujeres de comisión infantil.
 - Seleccionar un fallero en la tabla para abrir sus acciones:
-  - **Datos completos**: ficha con código JCF, fecha de nacimiento, fecha de
-    baja, comisiones, cuota, IBAN y pulsera, más la sección **Familia** (cabeza
-    y miembros) con la opción **Asignar / Mover familia**.
+  - **Datos completos**: ficha con el **Nº de fallero (ID)** —el identificador
+    con el que el fallero entra en el Portal Fallero, solo lectura—, código JCF,
+    fecha de nacimiento, fecha de baja, comisiones, cuota, IBAN y pulsera, más
+    la sección **Familia** (cabeza y miembros) con la opción **Asignar / Mover
+    familia**.
   - **Histórico**: años, cargos, comisiones y recompensas del fallero.
   - **Recompensas**: asignar una recompensa a un año de su histórico.
   - **Editar**: abre el **Formulario fallero** en modo edición.
