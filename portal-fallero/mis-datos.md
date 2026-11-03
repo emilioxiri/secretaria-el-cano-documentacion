@@ -47,7 +47,11 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 - **RN-03 — Mismas validaciones que Secretaría.** Nombre, apellidos, fecha de
   nacimiento, teléfono, calle, población y código postal son obligatorios; la
   fecha de nacimiento no puede ser futura ni de hace más de 120 años; el email,
-  si se indica, debe tener un formato válido.
+  si se indica, debe tener un formato válido. Ningún campo puede superar la
+  longitud de la ficha del censo (nombre, apellidos y calle 50 caracteres,
+  población y email 80, teléfono 25 y código postal 5): el formulario no deja
+  escribir más y, si aun así llega un valor más largo, no se guarda y se
+  muestra, por ejemplo, "Nombre admite como máximo 50 caracteres.".
 - **RN-04 — (Retirada) DNI siempre obligatorio.** Retirada al pasar el DNI a
   solo lectura (RN-09): el fallero ya no puede vaciarlo.
 - **RN-05 — (Retirada) DNI único.** Retirada al pasar el DNI a solo lectura
@@ -58,15 +62,18 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
   email se guarda en minúsculas.
 - **RN-08 — Avisos de error.** Los errores de un campo aparecen bajo el
   formulario en cuanto se modifica ese campo, y todos a la vez al pulsar
-  **Guardar cambios**. Con errores no se guarda nada.
+  **Guardar cambios**. Con errores no se guarda nada. Si el error es de la
+  base de datos se muestra "Error al actualizar fallero: No se ha podido
+  completar la operación. Inténtalo de nuevo más tarde." (el detalle técnico
+  no se muestra al fallero).
 - **RN-09 — DNI en solo lectura.** El DNI es la contraseña del portal y solo
   lo cambia secretaría. Si secretaría lo cambia mientras el fallero está
   dentro, su sesión se cierra (ver [Acceso](acceso.md), RN-05).
 - **RN-10 — Fecha de nacimiento editable.** El fallero puede corregir su fecha
   de nacimiento. El cambio tiene efecto inmediato:
   - Decide si es mayor de edad y, por tanto, si ve **Mi familia** (ver
-    [Mi familia](mi-familia.md), RN-01). Por eso un menor no puede pasar a
-    mayor de edad desde el portal (RN-13).
+    [Mi familia](mi-familia.md), RN-01). Por eso desde el portal no se puede
+    pasar de menor a mayor de edad (RN-13) ni de mayor a menor (RN-14).
   - Es la fecha con la que se le identifica al añadirle a una familia.
   - Secretaría calcula con ella la categoría de cuota (EPIM). Por eso el
     portal no admite una fecha que cambie la cuota asignada (RN-12).
@@ -74,23 +81,42 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
   se domicilia la cuota, con solo los 4 primeros y los 4 últimos caracteres
   visibles. Para cambiarla hay que contactar con secretaría.
 - **RN-12 — La fecha de nacimiento no cambia la cuota.** Una fecha de
-  nacimiento nueva solo se guarda si mantiene la categoría de cuota EPIM que
-  el fallero tiene asignada (edad a 19 de marzo: Exento, Pitufo hasta 4 años,
-  Infantil hasta 15, Mayor desde 16). Así, un fallero de cuota Mayor puede
-  corregir su fecha libremente mientras siga teniendo 16 años o más, y un
-  infantil no puede pasar a otra categoría. Si la fecha cambia la categoría,
-  no se guarda y se muestra el aviso genérico "Esa fecha de nacimiento no se
-  puede guardar desde el portal. Si es correcta, contacta con secretaría.",
-  que a propósito no indica qué fechas se aceptarían. No se comprueba si la
-  fecha no cambia (para no impedir guardar otros datos) ni si el fallero
-  todavía no tiene cuota asignada.
-- **RN-13 — Un menor no puede pasar a mayor de edad.** Si según la fecha de
-  nacimiento guardada el fallero es menor de 18 años, la fecha nueva también
-  tiene que dejarle como menor: por ejemplo, con 16 años y cuota Mayor puede
-  ponerse como mucho 17 años. Si la fecha le haría mayor de edad, no se guarda
-  y se muestra el mismo aviso genérico de RN-12; si la fecha es correcta, la
-  cambia secretaría. Si no hay fecha guardada esta regla no se aplica (sí la
-  de la cuota, RN-12), para que las fichas sin fecha puedan completarse.
+  nacimiento nueva solo se guarda si la cuota EPIM que el fallero tiene
+  asignada sigue siendo válida con ella, con los mismos márgenes que aplica
+  Secretaría (edad a 19 de marzo: Exento hasta 4 años, Pitufo hasta 4,
+  Infantil de 5 a 15, Mayor desde 16). Así, un fallero de cuota Mayor puede
+  corregir su fecha mientras siga teniendo 16 años o más, un infantil no
+  puede pasar a otra categoría y un exento puede corregirla mientras siga
+  teniendo menos de 5 años. Si la cuota dejaría de ser válida, no se guarda y
+  se muestra el aviso genérico "Esa fecha de nacimiento no se puede guardar
+  desde el portal. Si es correcta, contacta con secretaría.", que a propósito
+  no indica qué fechas se aceptarían. La cuota se compara sin distinguir
+  mayúsculas ni espacios; con una cuota que no sea E, P, I o M no se acepta
+  ninguna fecha nueva. No se comprueba si la fecha no cambia (para no impedir
+  guardar otros datos) ni si el fallero todavía no tiene cuota asignada.
+- **RN-13 — Un menor no puede hacerse mayor.** Si según la fecha de
+  nacimiento guardada el fallero es menor de 18 años, solo puede poner una
+  fecha posterior (hacerse más joven), nunca una anterior: por ejemplo, con 16
+  años no puede ponerse 17. No basta con impedir que pase a mayor de edad,
+  porque una fecha que le dejara con 17 años y 364 días le haría mayor de edad
+  al día siguiente. Si la fecha le haría mayor, no se guarda y se muestra el
+  mismo aviso genérico de RN-12; si la fecha es correcta, la cambia
+  secretaría. Si no hay fecha guardada (o la guardada es anterior a 1900, un
+  valor antiguo sin sentido) esta regla no se aplica (sí la de la cuota,
+  RN-12), para que las fichas sin fecha puedan completarse.
+
+- **RN-14 — Un mayor de edad no puede pasar a menor.** Si según la fecha
+  guardada el fallero es mayor de edad, la fecha nueva también tiene que
+  dejarle como mayor de edad. Si no, perdería **Mi familia** sin poder
+  deshacerlo desde el portal (RN-13), y si es cabeza de familia nadie podría
+  gestionar su familia. Se muestra el mismo aviso genérico de RN-12; si la
+  fecha es correcta, la cambia secretaría.
+- **RN-15 — Solo se guardan los campos cambiados.** Al pulsar **Guardar
+  cambios** solo se guardan los campos que el fallero ha modificado. Si
+  secretaría ha cambiado otro dato mientras el fallero tenía la pantalla
+  abierta (por ejemplo, la dirección), se conserva el cambio de secretaría y,
+  tras guardar, el formulario lo muestra. Si los dos han cambiado el mismo
+  campo, se guarda el valor del fallero.
 
 ## 5. Casos de uso
 
@@ -119,13 +145,11 @@ El DNI ya no se cambia desde el portal (RN-09): lo cambia secretaría.
 - **Actor**: fallero.
 - **Pasos**: **Mis datos** → **Fecha de nacimiento\*** → elegir la fecha
   correcta → **Guardar cambios**.
-- **Resultado**: mensaje "Fallero actualizado correctamente."; si con la nueva
-  fecha pasa a ser (o deja de ser) mayor de edad, el menú muestra (u oculta)
-  **Mi familia** (RN-10).
+- **Resultado**: mensaje "Fallero actualizado correctamente." (RN-10).
 - **Errores / alternativas**: fecha vacía, futura o de hace más de 120 años
-  (RN-03); fecha que cambia la categoría de cuota (RN-12) o que convertiría a
-  un menor en mayor de edad (RN-13): hay que pedir la corrección a
-  secretaría.
+  (RN-03); fecha con la que la cuota dejaría de ser válida (RN-12), que haría
+  mayor a un menor (RN-13) o que convertiría a un mayor de edad en menor
+  (RN-14): hay que pedir la corrección a secretaría.
 
 ## 6. Relación con otros dominios
 

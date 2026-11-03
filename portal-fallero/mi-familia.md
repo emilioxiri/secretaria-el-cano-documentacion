@@ -35,8 +35,8 @@ depende de la situación del fallero:
 **Cabeza de familia**
 
 - **Cabeza de familia** y tabla de **Miembros** (IdCenso, Nombre, Apellidos).
-- **Cambiar cabeza**: elegir el nuevo cabeza entre los miembros que pueden
-  serlo → **Confirmar cambio de cabeza**.
+- **Cambiar cabeza de familia**: elegir el nuevo cabeza entre los miembros
+  que pueden serlo → **Confirmar cambio de cabeza**.
 - **Añadir miembro**: **Nº de fallero** y **Fecha de nacimiento** del fallero
   a añadir → **Añadir miembro**.
 - **Quitar miembro**: elegir un miembro distinto del cabeza → **Quitar
@@ -52,10 +52,10 @@ depende de la situación del fallero:
 
 - **RN-01 — Solo mayores de edad.** Solo los falleros activos y mayores de
   edad ven **Mi familia** y pueden hacer cualquier operación de familias. Sin
-  fecha de nacimiento registrada no se considera mayor de edad. Como el
+  fecha de nacimiento registrada no se considera mayor de edad. Aunque el
   fallero puede corregir su fecha de nacimiento ([Mis datos](mis-datos.md),
-  RN-10), el acceso cambia en cuanto la guarda; un menor, sin embargo, no
-  puede ponerse una fecha de mayor de edad desde el portal (Mis datos, RN-13).
+  RN-10), desde el portal no puede pasar de menor a mayor de edad ni al revés
+  (Mis datos, RN-13 y RN-14): ese cambio lo hace secretaría.
 - **RN-02 — Solo la familia propia.** El fallero solo ve la familia a la que
   pertenece; no ve otras familias ni listados del censo.
 - **RN-03 — Solo el cabeza modifica.** Únicamente el cabeza de familia puede
@@ -70,10 +70,13 @@ depende de la situación del fallero:
   fallero activo y sin familia con esos datos.", para que el formulario no
   sirva para averiguar datos del censo. Pueden añadirse menores de edad.
 - **RN-06 — Bloqueo por intentos fallidos al añadir.** Tras 5 intentos
-  fallidos de añadir miembro, el cabeza no puede volver a intentarlo durante 15
-  minutos ("Demasiados intentos fallidos al añadir miembros…"). Un intento
-  correcto pone el contador a cero. Son los mismos valores configurables que el
-  bloqueo del acceso.
+  fallidos de añadir miembro en 15 minutos, el cabeza no puede volver a
+  intentarlo durante 15 minutos ("Demasiados intentos fallidos al añadir
+  miembros…"). Los fallos de hace más de 15 minutos ya no cuentan. Un intento
+  correcto **no** pone el contador a cero: si lo hiciera, se podrían alternar
+  intentos con el alta (y la baja) de un miembro conocido sin llegar nunca al
+  bloqueo. Tras añadir un miembro, el formulario se vacía. Son los mismos
+  valores configurables que el bloqueo del acceso.
 - **RN-07 — El cabeza no se quita.** No se puede quitar al cabeza de la
   familia; primero hay que cambiar el cabeza o eliminar la familia si es el
   único miembro.
@@ -91,6 +94,14 @@ depende de la situación del fallero:
   (RN-05); el cambio lo hace secretaría.
 - **RN-11 — Homónimos distinguibles.** En los desplegables de miembros, las
   personas con el mismo nombre se distinguen por su número de fallero (#nº).
+
+- **RN-12 — Nombres tal cual.** Los nombres de los miembros (que cada
+  fallero escribe en [Mis datos](mis-datos.md)) se muestran siempre como
+  texto: un nombre con símbolos como `[`, `*` o `_` no se convierte en un
+  enlace ni cambia el formato de la pantalla.
+- **RN-13 — Errores de la base de datos.** Si una operación falla por un
+  error de la base de datos se muestra "No se ha podido completar la
+  operación. Inténtalo de nuevo más tarde."; el detalle técnico no se muestra.
 
 ## 5. Casos de uso
 
@@ -126,8 +137,8 @@ depende de la situación del fallero:
 
 - **Actor**: cabeza de familia.
 - **Precondición**: hay otro miembro activo y mayor de edad.
-- **Pasos**: **Cambiar cabeza** → elegir el nuevo cabeza → **Confirmar cambio
-  de cabeza**.
+- **Pasos**: **Cambiar cabeza de familia** → elegir el nuevo cabeza →
+  **Confirmar cambio de cabeza**.
 - **Resultado**: mensaje "Cabeza de familia cambiado correctamente."; el
   antiguo cabeza pasa a ver la familia en solo lectura (RN-08).
 
