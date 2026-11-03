@@ -21,20 +21,22 @@ edición de un fallero en Secretaría.
 
 Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 
-- Aviso: "Revisa y actualiza tus datos. El DNI, la comisión, la cuota y los
-  datos bancarios solo los puede cambiar secretaría."
+- Aviso: "Revisa y actualiza tus datos. Para cambiar el DNI contacta con
+  secretaría."
 - Sección **Datos personales**:
   - **ID Censo**: solo lectura.
   - **Nombre\***, **Apellidos\***, **Fecha de nacimiento\***, **Teléfono\*** y
     **Email**.
-  - **DNI**: solo lectura, con la nota "Tu DNI es tu contraseña de acceso.
-    Para cambiarlo contacta con secretaría."
+  - **DNI**: solo lectura.
 - Sección **Dirección**: **Calle\***, **Población\*** y **Código Postal\***.
 - Sección **Datos bancarios**: **Cuenta bancaria (IBAN)** en solo lectura,
   con parte del número oculto (por ejemplo "ES91 \*\*\*\* \*\*\*\* \*\*\*\*
   \*\*\*\* 1332"), o "— Sin cuenta bancaria —" si no tiene ninguna asignada.
 - **Guardar cambios**: valida y guarda.
 - **Descartar cambios**: vuelve a cargar los datos guardados.
+- Al salir de **Mis datos** (por ejemplo, a **Mi familia**) y volver, el
+  formulario se vuelve a cargar con los datos guardados; los cambios sin
+  guardar se pierden.
 
 ## 4. Reglas de negocio
 
