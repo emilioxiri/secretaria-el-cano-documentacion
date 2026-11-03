@@ -41,7 +41,10 @@ Pantalla **Mis datos** (menú lateral; es la pantalla de entrada):
 ## 4. Reglas de negocio
 
 - **RN-01 — Solo los datos propios.** El fallero solo ve y modifica su propia
-  ficha; no tiene acceso a los datos de ningún otro fallero.
+  ficha; no tiene acceso a los datos de ningún otro fallero. La única
+  excepción es el cabeza de familia, que ve y modifica con este mismo
+  formulario los datos de los menores de su familia (ver
+  [Mi familia](mi-familia.md), RN-14).
 - **RN-02 — Campos editables limitados.** Solo se pueden cambiar nombre,
   apellidos, fecha de nacimiento, teléfono, email, calle, población y código
   postal. El DNI y la cuenta bancaria se muestran en solo lectura (RN-09,
@@ -157,7 +160,8 @@ El DNI ya no se cambia desde el portal (RN-09): lo cambia secretaría.
 
 - [Acceso](acceso.md) — el DNI es la contraseña del portal.
 - [Mi familia](mi-familia.md) — la fecha de nacimiento decide si el fallero es
-  mayor de edad.
+  mayor de edad. El cabeza de familia usa este formulario para los datos de
+  los menores de su familia, con las mismas reglas.
 - [Censo (Secretaría)](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/censo.md)
   — es la misma ficha del censo; los datos reservados los gestiona secretaría.
 - [Cuentas bancarias (Secretaría)](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/cuentas-bancarias.md)

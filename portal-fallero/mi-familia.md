@@ -8,6 +8,11 @@ Que los falleros mayores de edad creen y mantengan su propia familia sin pasar
 por secretaría, con las mismas reglas de negocio de familias que aplica
 Secretaría y sin dar acceso al resto del censo ni a otras familias.
 
+Además, que el cabeza de familia pueda revisar y actualizar los datos de los
+menores de su familia. Los niños pequeños no suelen tener DNI y, por tanto, no
+pueden entrar al portal (ver [Acceso](acceso.md), RN-01): sin esto, sus datos
+solo podría mantenerlos secretaría.
+
 ## 2. Conceptos
 
 - **Familia**, **cabeza de familia** y **miembro**: los mismos conceptos que en
@@ -16,6 +21,9 @@ Secretaría y sin dar acceso al resto del censo ni a otras familias.
 - **Mayor de edad**: 18 años cumplidos a fecha de hoy según la fecha de
   nacimiento registrada, que el propio fallero puede corregir en
   [Mis datos](mis-datos.md).
+- **Menor de la familia**: miembro de la familia, activo, con fecha de
+  nacimiento registrada y que no ha cumplido 18 años a fecha de hoy. Un
+  miembro sin fecha de nacimiento registrada no cuenta como menor.
 - **Identificación de un miembro**: para añadir a alguien a la familia se
   indican su nº de fallero y su fecha de nacimiento; el portal nunca muestra
   listados del censo.
@@ -41,6 +49,10 @@ depende de la situación del fallero:
   a añadir → **Añadir miembro**.
 - **Quitar miembro**: elegir un miembro distinto del cabeza → **Quitar
   miembro**.
+- **Datos de los menores**: elegir el menor en **Menor** y se muestra su
+  ficha con el mismo formulario de [Mis datos](mis-datos.md) (**Guardar
+  cambios** / **Descartar cambios**). Si la familia no tiene menores, aviso
+  "No hay miembros menores de edad en tu familia.".
 - **🗑 Eliminar familia**: solo activo cuando únicamente queda el cabeza.
 
 **Miembro (no cabeza)**
@@ -59,8 +71,9 @@ depende de la situación del fallero:
 - **RN-02 — Solo la familia propia.** El fallero solo ve la familia a la que
   pertenece; no ve otras familias ni listados del censo.
 - **RN-03 — Solo el cabeza modifica.** Únicamente el cabeza de familia puede
-  añadir o quitar miembros, cambiar el cabeza o eliminar la familia. El resto
-  de miembros mayores de edad la ven en solo lectura.
+  añadir o quitar miembros, cambiar el cabeza, eliminar la familia y
+  gestionar los datos de los menores (RN-14). El resto de miembros mayores de
+  edad la ven en solo lectura.
 - **RN-04 — Crear familia (mismas condiciones que Secretaría).** Para crear
   una familia el fallero debe estar activo, tener asignada la comisión MF y no
   pertenecer ya a ninguna familia. Queda como cabeza y primer miembro.
@@ -102,6 +115,34 @@ depende de la situación del fallero:
 - **RN-13 — Errores de la base de datos.** Si una operación falla por un
   error de la base de datos se muestra "No se ha podido completar la
   operación. Inténtalo de nuevo más tarde."; el detalle técnico no se muestra.
+- **RN-14 — El cabeza gestiona los datos de los menores.** Solo el cabeza de
+  familia puede ver y modificar los datos de los menores de su familia (ver
+  Conceptos). Puede cambiar exactamente los mismos campos que el fallero en
+  [Mis datos](mis-datos.md) (nombre, apellidos, fecha de nacimiento,
+  teléfono, email, calle, población y código postal), con las mismas
+  validaciones, aplicadas a la ficha del menor. El DNI y la cuenta bancaria
+  (con parte del número oculto) se ven en solo lectura. Las reglas de la
+  fecha de nacimiento son las del menor: no puede cambiar su cuota (Mis
+  datos, RN-12) ni hacerle mayor (Mis datos, RN-13), así que el menor sigue
+  siéndolo tras el cambio; si la fecha es correcta, la cambia secretaría. Se
+  aplica a todos los menores, también a los que tienen DNI y pueden entrar
+  por sí mismos; si los dos modifican la ficha a la vez, se guarda campo a
+  campo como en Mis datos, RN-15.
+- **RN-15 — Los datos de los adultos no se muestran.** De los miembros
+  mayores de edad (por ejemplo, la pareja o un hijo de 25 años) solo se ven
+  el nº de fallero, el nombre y los apellidos de la tabla de miembros. Cada
+  adulto mantiene sus datos desde su propio acceso.
+- **RN-16 — El permiso se pierde solo.** El permiso sobre los datos de un
+  menor se comprueba de nuevo en cada acción: desaparece en cuanto el menor
+  cumple 18 años, deja la familia, se le da de baja o el cabeza deja de serlo
+  (por cambio de cabeza o eliminación de la familia). Si ocurre mientras el
+  cabeza tiene el formulario abierto, al guardar no se guarda nada y se
+  muestra un aviso de error, por ejemplo "Error al actualizar fallero: Solo
+  puedes ver y modificar los datos de los miembros activos y menores de edad
+  de tu familia.".
+- **RN-17 — Registro de cambios.** Cada cambio en los datos de un menor
+  queda registrado en el registro interno del portal indicando qué fallero lo
+  hizo y sobre qué ficha, para poder averiguarlo si hay una reclamación.
 
 ## 5. Casos de uso
 
@@ -150,9 +191,24 @@ depende de la situación del fallero:
 - **Resultado**: mensaje "Familia eliminada correctamente."; el fallero queda
   sin familia (RN-09).
 
+### CU-06 — Actualizar los datos de un hijo
+
+- **Actor**: cabeza de familia.
+- **Precondición**: el hijo es miembro de su familia, está activo, tiene
+  fecha de nacimiento registrada y es menor de edad.
+- **Pasos**: **Mi familia** → **Datos de los menores** → elegir al hijo en
+  **Menor** → modificar los campos → **Guardar cambios**.
+- **Resultado**: mensaje "Fallero actualizado correctamente."; secretaría ve
+  el cambio al momento.
+- **Errores / alternativas**: las mismas validaciones que en Mis datos
+  (RN-14); si el hijo ha dejado de ser un menor de la familia mientras tanto,
+  no se guarda (RN-16).
+
 ## 6. Relación con otros dominios
 
 - [Acceso](acceso.md) — el menú **Mi familia** solo aparece a mayores de edad.
+- [Mis datos](mis-datos.md) — el cabeza edita los datos de los menores con
+  el mismo formulario y las mismas reglas.
 - [Familias (Secretaría)](https://github.com/emilioxiri/secretaria-el-cano-documentacion/blob/main/familias.md)
   — las familias son las mismas; secretaría ve y puede modificar al momento lo
   que se hace desde el portal, y es quien mueve falleros entre familias.
