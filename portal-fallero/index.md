@@ -56,7 +56,7 @@ Tras iniciar sesión, el menú lateral ofrece estas opciones:
 |---|---|
 | **Nº de fallero** | Número del fallero en el censo de la falla (el "ID Censo" de Secretaría). Es el usuario del portal. |
 | **DNI** | DNI o NIE del fallero tal como figura en el censo. Es la contraseña del portal. |
-| **Mayor de edad** | Fallero con 18 años cumplidos a fecha de hoy según la fecha de nacimiento registrada (que el fallero puede corregir en **Mis datos**). Sin fecha de nacimiento registrada no se considera mayor de edad. |
+| **Mayor de edad** | Fallero con 18 años cumplidos a fecha de hoy según la fecha de nacimiento registrada. El fallero puede corregir su fecha en **Mis datos**, pero no pasar de menor a mayor de edad ni al revés. Sin fecha de nacimiento registrada no se considera mayor de edad. |
 | **Fallero activo** | Fallero sin fecha de baja. |
 | **Cabeza de familia** | Fallero que encabeza una familia y el único que puede modificarla desde el portal. |
 | **Comisión MF** | Comisión masculina o femenina asignada por secretaría. Es necesaria para poder crear una familia. |
